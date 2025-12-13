@@ -1,0 +1,25 @@
+{
+  "name": "project-1-blog",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/HenryBlake/EXPRESS-BLOG-BACKEND-SIMPLE#readme",
+  "bugs": {
+    "url": "https://github.com/HenryBlake/EXPRESS-BLOG-BACKEND-SIMPLE/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenryBlake/EXPRESS-BLOG-BACKEND-SIMPLE.git"
+  },
+  "license": "ISC",
+  "author": "Elisa",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "express": "^5.2.1",
+    "sqlite3": "^5.1.7"
+  }
+}
