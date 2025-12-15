@@ -1,0 +1,22 @@
+const ErrorModel = require("../model/ErrorModel");
+
+function createNewErrorObj(err) {
+  var statusCode = err.status;
+  if (!statusCode) {
+    statusCode = 500;
+  }
+  const newErr = new ErrorModel(err.message, statusCode, "error");
+  return newErr;
+}
+exports.errhandlerGeneral = (err, req, res, next) => {
+  // res.status(500).json({ err: err.message });
+  const errHandler = createNewErrorObj(err);
+  res.status(errHandler.obj.status_code).json(errHandler.obj);
+};
+//A simple version fo err which can't modify the status code.
+exports.simpleErrOutput = (err, req, res, next) => {
+  err.status = 500;
+  res
+    .status(err.status)
+    .json({ message: err.message, "status code": err.status, type: "err" });
+};
