@@ -1,19 +1,18 @@
 class UserPost {
-  constructor(title, content, views, likes, user) {
+  constructor(id, title, content, views, likes, authorID, date) {
     // this.title = title;
     // this.content = content;
     // this.views = views;
     // this.likes = likes;
     // this.user = user;
     this.obj = {
+      id: id,
       title: title,
       content: content,
       views: views,
       likes: likes,
-      user: {
-        id: user.id,
-        username: user.username,
-      },
+      authorID: authorID,
+      createDate: date,
     };
   }
 }
