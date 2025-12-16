@@ -1,4 +1,5 @@
-import ErrorModel from "../model/ErrorModel";
+// import ErrorModel from "../model/ErrorModel";
+import ErrorModel from "../model/ErrorModel.js";
 //Make the error format more neat.
 function createNewErrorObj(err) {
   var statusCode = err.status;

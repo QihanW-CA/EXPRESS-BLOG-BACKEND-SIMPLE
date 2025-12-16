@@ -1,15 +1,16 @@
-const express = require("express");
+import express, { json } from "express";
 const app = express();
 const port = 3101;
-const errHandler = require("./middleware/generlErrorHandler");
-const tRouter = require("./router/testErrRouter");
+// import errhandlerGeneral from "./middleware/generlErrorHandler.js";
+import { errhandlerGeneral } from "./middleware/generlErrorHandler.js";
+import { getTestError } from "./controller/testErrController.js";
 //Make sure it could handle json format in right way.
-app.use(express.json());
+app.use(json());
 
 app.get("/", (req, res) => {
   res.json({ message: "Hello World!" });
 });
-app.use("/newTE", tRouter);
+app.use("/newTE", getTestError);
 
 //Test error happend
 app.get("/testerr", (req, res) => {
@@ -19,7 +20,7 @@ app.get("/testerr", (req, res) => {
 
 //Error handler
 // app.use(errHandler.simpleErrOutput);
-app.use(errHandler.errhandlerGeneral);
+app.use(errhandlerGeneral);
 //Start server on this port.
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

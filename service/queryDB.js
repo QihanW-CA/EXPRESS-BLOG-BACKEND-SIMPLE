@@ -1,6 +1,6 @@
 import { bios } from "../model/fakeDB.json";
 import { users } from "../model/fakeDB.json";
-import { contentToHash as hashPassword } from "../service/hashService";
+import { contentToHash as hashPassword } from "../service/hashService.js";
 
 //Internal functions
 

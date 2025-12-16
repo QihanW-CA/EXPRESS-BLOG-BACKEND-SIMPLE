@@ -7,4 +7,4 @@ class ErrorModel {
     };
   }
 }
-module.exports = ErrorModel;
+export default ErrorModel;

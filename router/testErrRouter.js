@@ -1,13 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const teController = require("../controller/testErrController");
+import { Router } from "express";
+const router = Router();
+import { getTestError } from "../controller/testErrController";
 
 //We will handle all errors in the router.
-router.get("/net", teController.getTestError, (err, req, res, next) => {
+router.get("/net", getTestError, (err, req, res, next) => {
   if (err) {
     err.status = 404;
     next(err);
   }
 });
 
-module.exports = router;
+export default router;
