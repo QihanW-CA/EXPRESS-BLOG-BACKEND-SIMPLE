@@ -15,6 +15,9 @@ export function jwtAuthentication(req,res,next) {
     try{
         const hashPassword=qDB.getHashPasswordByName(username);
         const passwordChecked=  comparePassAndHash(password,hashPassword);
+        if(!passwordChecked){
+            return res.status(401).json({"error":"Wrong password"});
+        }
     }catch (error){
         next(error)
     }
@@ -33,8 +36,8 @@ export function jwtAuthentication(req,res,next) {
 
         console.log("token signed",token)
     })
-    jwt.verifyToken(userToken,(err,token)=>{
-        if (err) next(err)
-        console.log("token verified",token)
-    })
+    // jwt.verifyToken(userToken,(err,token)=>{
+    //     if (err) next(err)
+    //     console.log("token verified",token)
+    // })
 }

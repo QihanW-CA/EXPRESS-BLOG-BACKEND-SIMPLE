@@ -1,4 +1,4 @@
-// import { jsonwentoken as jwt } from "jsonwebtoken";
+// import { jsonwebtoken as jwt } from "jsonwebtoken";
 import { sign, verify } from "jsonwebtoken";
 const expire = "24h";
 export function signToken(token) {

@@ -1,10 +1,10 @@
 class User {
-  constructor(id, username,password, isAdmin) {
+  constructor(id, username,password, role) {
     this.userinfo = {
       id: id,
       username: username,
       password: password,
-      isAdmin: isAdmin,
+      role: role,
     };
   }
 }

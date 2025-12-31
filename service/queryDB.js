@@ -1,5 +1,6 @@
 import fdb from "../model/fakeDB.json" with {type: "json"};
 import {contentToHash as hashPassword} from "../service/hashService.js";
+import {promise} from "bcrypt/promises.js";
 
 //Internal functions
 
@@ -52,7 +53,20 @@ export function postAuthorById(id) {
   if (!post) throw new Error("Can't find post");
   return post;
 }
-
+export function createPost(post) {
+  fdb.posts.push(post);
+}
 export function getIdByName(username) {
   return fdb.users.find((u) => u.username === username).id;
+}
+
+//This is all about posts functions
+class PostDB{
+  getPost(username) {
+    return fdb.posts.find((u) => u.username === username);
+  }
+
+  postIt(id) {
+   const user= fdb.posts.find((p)=>p.id===id)
+  }
 }
