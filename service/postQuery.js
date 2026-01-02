@@ -1,38 +1,13 @@
-import fdb from "../model/fakeDB.json" with {type: "json"};
+import getDB  from "./sqliteDB.js"
+const db = getDB();
 
-let posts=fdb.posts
-
-
-//Get by author ID
-export function  getPostByAuthId(authId){
-    return posts.find(post=>post.authorID===authId);
+//Get the post by author ID
+export function readPostByAuthorId(authorId){
+  const raw= db.prepare(`SELECT * FROM posts WHERE author_id ==${authorId}`);
+    let result;
+    return result =raw.all()
 }
 
-
-//Get by post ID
-export function  getPostById(postId){
-    return posts.find(post=>post.id===postId);
+export function readPostById(id) {
+    const raw = db.prepare(`SELECT * FROM posts WHERE id = ${id}`);
 }
-
-
-//TODO: use the file system "fs" to write this posts object into the real Json. This why it says error.
-//post new post
-export function  addNewPost(post){
-    posts.push(post);
-    // const newPostId=post.id
-    // const newPost=this.getPostById(newPostId);
-    // if(!newPost){
-    //     throw new Error("Add new post failed")
-    // }
-    console.log(posts);
-    return {message:"Add new post successfully"};
-}
-
-//Delete the post
-export function  deletePost(postId){
-    posts=posts.filter((post) => {
-       return post.id !== postId;
-   });
-}
-
-//put post
