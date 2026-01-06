@@ -1,5 +1,11 @@
-import * as dbQuery from "../service/queryDB.js";
-
+// import * as dbQuery from "../service/queryDB.js";
+import {getUserById} from "../service/userQuery.js";
 export function getUsernameById(req, res, next) {
-   const userId= req.param.id
+   let userId= req.param.id
+   try{
+      const userResult=getUserById(userId)
+      res.json(userResult)
+   }catch (err){
+      next(err)
+   }
 }
