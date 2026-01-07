@@ -33,7 +33,7 @@ export function postNewPost(req, res, next) {
   }
 }
 
-export function updatePost(req, res, next) {
+export function updatePostContent(req, res, next) {
   const body = req.body;
   const id=req.body.id
   if (!body) {

@@ -1,6 +1,6 @@
 // import { Router } from "express";
 import express from "express";
-import { getPostByAuthorId,postNewPost } from "../controller/postController.js";
+import { getPostByAuthorId,postNewPost,deletePostByPostId} from "../controller/postController.js";
 
 const router = express.Router();
 router.get("/", (req, res) => {
@@ -20,4 +20,10 @@ router.post("/post-new-post",postNewPost, (err,next) => {
   }
 })
 //Delete post by post id
+router.delete("/delete-post",deletePostByPostId, (err,next) => {
+  if (err) {
+    err.status = 404;
+    next(err);
+  }
+})
 export default router;

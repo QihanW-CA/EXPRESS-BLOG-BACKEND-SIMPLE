@@ -1,4 +1,6 @@
 import getDB from "./sqliteDB.js";
+import {comparePassAndHash} from "./hashService.js";
+
 const db=getDB()
 
 //Get the User
@@ -31,4 +33,21 @@ export function insertNewUserToDB(newUser){
     ${newUser.password},
     ${newUser.role}                                 
     )`)
+}
+//Functional methods
+//Compare username.
+export function checkUsername(userName){
+    const raw=db.prepare(`SELECT user_name FROM users WHERE user_name=${userName}`);
+    const result=raw.all()
+    if(!result){
+        throw new Error("Can't find user name")
+    }
+    if(result.toString().toLocaleLowerCase()===userName.toLocaleLowerCase()){
+        throw new Error("User already exists")
+    }
+}
+
+//TODO:Finish the function that compare the password.
+//Compare password.
+export function checkPassword(password){
 }
