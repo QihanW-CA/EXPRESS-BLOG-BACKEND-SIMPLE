@@ -18,3 +18,17 @@ export function updateUserName(userId,newUsername){
 export function updatePassword(userId,newPassword){
     db.exec(`UPDATE users SET password=${newPassword} WHERE id=${userId}`)
 }
+
+//Insert new user into db
+export function insertNewUserToDB(newUser){
+    const userIdDB=getUserById(newUser.id)
+    if(userIdDB){
+       throw new Error("User already exists")
+    }
+    db.exec(`INSERT INTO users VALUES(
+    ${newUser.id},
+    ${newUser.username},
+    ${newUser.password},
+    ${newUser.role}                                 
+    )`)
+}

@@ -5,7 +5,7 @@ Other modules should use this to get the database.
 //Import sqlite
 import * as sqlite from "node:sqlite";
 const dbPath="./src/blog_db.db"
-let db=new sqlite.DatabaseSync(dbPath)
+const db=new sqlite.DatabaseSync(dbPath)
 // db.open();
 // const stmt=db.prepare("SELECT * FROM posts WHERE author_id=1");
 // const result=stmt.all()
