@@ -5,10 +5,13 @@ const db=getDB()
 
 //Get the User
 export  function getUserById(id){
-    const raw=db.prepare(`SELECT * FROM users WHERE id=${id}`);
+    const raw=db.prepare(`SELECT user_name FROM users WHERE id=${id}`);
     return raw.all()
 }
-
+function getHashPassword(id){
+    let raw=db.prepare(`SELECT password FROM users WHERE id=${id}`);
+    return raw.all()
+}
 //Update User information
 
 //Update the user's name.
@@ -45,6 +48,16 @@ export function checkUsername(userName){
     if(result.toString().toLocaleLowerCase()===userName.toLocaleLowerCase()){
         throw new Error("User already exists")
     }
+}
+
+//User check
+export function userCheck(id,password){
+    let hashPassword=getHashPassword(id);
+    let passCheck=comparePassAndHash(password,hashPassword);
+    if(!passCheck){
+        throw new Error("Wrong password")
+    }
+    return passCheck;
 }
 
 //TODO:Finish the function that compare the password.

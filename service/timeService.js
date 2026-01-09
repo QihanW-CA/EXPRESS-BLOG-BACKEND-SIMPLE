@@ -8,6 +8,5 @@ export function getCurrentTimeString() {
 }
 
 export function stringToDate(string) {
-  const date = Date.parse(string);
-  return date;
+  return Date.parse(string);
 }
