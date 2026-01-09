@@ -21,13 +21,14 @@ export function getPostByAuthorId(req, res, next) {
 //Post new post
 export function postNewPost(req, res, next) {
   let post =req.body;
-  post.createDate= Date.now().toString();
-  console.log(post);
+  let authorId = post.authorID;
+  // post.createDate= Date.now().toString();
+  // console.log({"controller":post});
   if (!post) {
     return res.status(400).send({error: "Post not found"});
   }
   try{
-    newPostToDB(post);
+    newPostToDB(authorId,post);
     res.json({message: "Post added"});
   }catch(err){
     next(err);

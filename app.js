@@ -18,12 +18,12 @@ app.get("/", (req, res) => {
 
 
 //Using JWT middleware to make sure only authorized people can use features below.
-app.use(jwtAuthentication,(err,next)=>{
-  if(err){
-    err.code=500
-  }
-  next(err)
-})
+// app.use(jwtAuthentication,(err,next)=>{
+//   if(err){
+//     err.code=500
+//   }
+//   next(err)
+// })
 
 //Here are the all routers.
 app.use("/users",userRouter.default)

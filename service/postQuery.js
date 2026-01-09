@@ -19,11 +19,22 @@ export function updatePost(postId, postBody){
 
 //Add new post
 export function newPostToDB(authorId, postBody){
-    db.exec(`INSERT INTO posts (
-        "id","title","content","views","likes","author_id","create_date"
-    ) VALUES (
-        ${postBody.id},${postBody.content},${postBody.views},${postBody.likes},${postBody.likes},${postBody.authorID},${postBody.createDate}          
-    )`)
+    // console.log("Service level:"+postBody);
+    const stmt = db.prepare(`
+  INSERT INTO posts (id, title, content, views, likes, author_id, create_date)
+  VALUES (?, ?, ?, ?, ?, ?, ?)
+`);
+
+    stmt.run(
+        postBody.id,
+        postBody.title,
+        postBody.content,
+        postBody.views,
+        postBody.likes,
+        postBody.authorID,
+        postBody.createDate || new Date().toISOString()
+    );
+
 }
 
 //Delete by author id
