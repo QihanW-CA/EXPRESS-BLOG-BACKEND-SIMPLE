@@ -1,7 +1,38 @@
 // import * as dbQuery from "../service/queryDB.js";
-import {getUserById,insertNewUserToDB,updatePassword,updateUserName} from "../service/userQuery.js";
-import {contentToHash} from "../service/hashService.js";
+import {getUserById,insertNewUserToDB,updatePassword,updateUserName,checkUsername} from "../service/userQuery.js";
+import {contentToHash,comparePassAndHash} from "../service/hashService.js";
+import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
+
+//Register
+export function userRegister(req, res,next) {
+   const {username, password} = req.body;
+   let isExists;
+   try{
+     isExists = checkUsername(username);
+   }catch(err){
+     next(err);
+   }
+   if(isExists===true){
+      res.status(400).send({"error":"Username already exists"});
+   }
+
+   let newId=getUUID().toString();
+   let hashedPassword= contentToHash(password);
+   let newUser = new User(newId,username,hashedPassword,"user")
+   try{
+      insertNewUserToDB(newUser.userinfo);
+   }catch (err){
+      next(err);
+   }
+}
+
+//Log in
+//JWT will be created and verified in this section.
+export function userLogin(req, res,next){
+   const {username, password} = req.body;
+
+}
 
 export function getUsernameById(req, res, next) {
    let userId= req.param.id

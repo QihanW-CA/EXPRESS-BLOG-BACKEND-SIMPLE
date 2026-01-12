@@ -46,7 +46,7 @@ export function checkUsername(userName){
     const raw=db.prepare(`SELECT user_name FROM users WHERE user_name=${userName}`);
     const result=raw.all()
     if(!result){
-        throw new Error("Can't find user name")
+        return{"exists":false}
     }
     if(result.toString().toLocaleLowerCase()===userName.toLocaleLowerCase()){
         throw new Error("User already exists")
