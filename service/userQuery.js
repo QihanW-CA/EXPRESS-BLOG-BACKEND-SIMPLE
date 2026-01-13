@@ -49,6 +49,12 @@ export function checkUsername(userName){
         return{"exists":false}
     }
     if(result.toString().toLocaleLowerCase()===userName.toLocaleLowerCase()){
-        throw new Error("User already exists")
+        // throw new Error(" already exists")
+        return {"exists":true}
     }
+}
+
+export function getPasswordByUsername(username){
+    const raw=db.prepare(`SELECT password FROM users WHERE user_name=${username}`);
+    return raw.all()
 }

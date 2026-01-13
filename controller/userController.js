@@ -1,5 +1,5 @@
 // import * as dbQuery from "../service/queryDB.js";
-import {getUserById,insertNewUserToDB,updatePassword,updateUserName,checkUsername} from "../service/userQuery.js";
+import {getUserById,insertNewUserToDB,updatePassword,updateUserName,checkUsername,getPasswordByUsername} from "../service/userQuery.js";
 import {contentToHash,comparePassAndHash} from "../service/hashService.js";
 import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
@@ -29,8 +29,40 @@ export function userRegister(req, res,next) {
 
 //Log in
 //JWT will be created and verified in this section.
+//TODO:Finish this function.
 export function userLogin(req, res,next){
-   const {username, password} = req.body;
+   let {username, password} = req.body;
+   let isExists;
+   let passwordIsMatch;
+   let hashedPassword;
+   let token={}
+   try{
+    isExists=checkUsername(username);
+   }
+   catch(err){
+      next(err);
+   }
+   if(isExists!==true){
+      res.status(400).send({"error":"No username exist"});
+   }
+   try{
+      hashedPassword= getPasswordByUsername(username);
+      if(!hashedPassword){
+         new Error("Passwords don't match");
+      }
+      passwordIsMatch=comparePassAndHash(password,hashedPassword);
+   }catch(err){
+      next(err);
+   }
+   if(passwordIsMatch===true){
+      token={
+         username:username,
+         password:hashedPassword
+      }
+   }
+
+   signToken(token);
+   verifyToken(token)
 
 }
 

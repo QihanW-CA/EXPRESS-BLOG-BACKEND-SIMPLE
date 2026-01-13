@@ -2,6 +2,8 @@
 import ErrorModel from "../model/ErrorModel.js";
 // import {addNewPost} from "../service/postQuery.js";
 import {readPostByAuthorId,updatePost,newPostToDB,deleteByAuthorId,deleteByPostId} from "../service/postQuery.js";
+import {getUUID} from "../service/uuidService.js";
+import {raw} from "express";
 
 //Get the post
 export function getPostByAuthorId(req, res, next) {
@@ -20,15 +22,24 @@ export function getPostByAuthorId(req, res, next) {
 
 //Post new post
 export function postNewPost(req, res, next) {
-  let post =req.body;
-  let authorId = post.authorID;
+  let rawPost =req.body;
+  let post={
+    id:getUUID(),
+    title:rawPost.title,
+    content:rawPost.content,
+    views:0,
+    likes:0,
+    authorID: rawPost.authorID,
+    createDate:''
+  }
+
   // post.createDate= Date.now().toString();
   // console.log({"controller":post});
   if (!post) {
     return res.status(400).send({error: "Post not found"});
   }
   try{
-    newPostToDB(authorId,post);
+    newPostToDB(rawPost.authorID,post);
     res.json({message: "Post added"});
   }catch(err){
     next(err);
