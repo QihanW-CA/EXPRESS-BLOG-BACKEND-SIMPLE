@@ -1,10 +1,10 @@
 import express from 'express';
-import{changePassword,changeUsername,createNewUser} from "../controller/userController.js";
+import {changePassword, changeUsername, createNewUser, userRegister} from "../controller/userController.js";
 
 const router = express.Router();
 
 //Create new user
-router.post("/create-new-user",createNewUser,(err,next)=>{
+router.post("/create-new-user",userRegister,(err,next)=>{
     if(err){
         err.code=500;
         next(err);
