@@ -27,6 +27,12 @@ export function updatePassword(userId,newPassword){
 
 }
 
+//Update the role of the user
+export function updateRole(username,newRole){
+    const raw= db.prepare("UPDATE users SET role=? WHERE username=?")
+    const result=raw.all(newRole,username)
+}
+
 //Insert new user into db
 export function insertNewUserToDB(newUser){
 

@@ -1,5 +1,13 @@
 // import * as dbQuery from "../service/queryDB.js";
-import {getUserById,insertNewUserToDB,updatePassword,updateUserName,checkUsername,getPasswordByUsername} from "../service/userQuery.js";
+import {
+   getUserById,
+   insertNewUserToDB,
+   updatePassword,
+   updateUserName,
+   checkUsername,
+   getPasswordByUsername,
+   updateRole
+} from "../service/userQuery.js";
 import {contentToHash,comparePassAndHash} from "../service/hashService.js";
 import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
@@ -120,6 +128,18 @@ export function changePassword(req,res,next){
    try{
       let result=updatePassword(id,newPassword)
       res.json(result)
+   }catch (err){
+      next(err)
+   }
+}
+
+//To change the role
+//Pass the username and new role of dedicate user.
+export function changeRole(req,res,next){
+   let [username,role]=req.body;
+   try{
+      updateRole(username,role)
+      res.json({"message":"User role changed successfully.",})
    }catch (err){
       next(err)
    }
