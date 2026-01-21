@@ -6,10 +6,8 @@ Other modules should use this to get the database.
 import * as sqlite from "node:sqlite";
 const dbPath="./src/blog_db.db"
 const db=new sqlite.DatabaseSync(dbPath)
-// db.open();
-// const stmt=db.prepare("SELECT * FROM posts WHERE author_id=1");
-// const result=stmt.all()
-// console.log( result)
+//Allow modules to get the database.It should be open once some module uses function.
+//It was not set when to close
 export  default  function getDB(){
     return db;
 }

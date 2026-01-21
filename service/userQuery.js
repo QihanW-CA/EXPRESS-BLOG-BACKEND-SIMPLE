@@ -1,9 +1,22 @@
+/*
+In this module, every method should be named in the Sqlite statements style.
+For example:
+    In Sqlite: SELECT username FROM users WHERE id=?
+    In the module: selectUsernameById(id){}
+This is to avoid name confusion in controllers.
+ */
 import getDB from "./sqliteDB.js";
-import {comparePassAndHash} from "./hashService.js";
 
+//Get database.
 const db=getDB()
 
-//Get the User
+//GET methods.
+
+//Get the username by UUID.
+export function selectUsernameById(id){
+    const raw=db.prepare('SELECT username FROM users WHERE id=?');
+    return raw.run(id)
+}
 export  function getUserById(id){
     const raw=db.prepare(`SELECT username FROM users WHERE id='${id}'`);
     return raw.all()
@@ -52,6 +65,7 @@ export function checkUsername(userName){
     if(!result){
         return{"exists":false}
     }
+    console.log(result)
     // if(result.toString().toLocaleLowerCase()===userName.toLocaleLowerCase()){
     //     // throw new Error(" already exists")
     //     return {"exists":true}
@@ -62,3 +76,5 @@ export function getPasswordByUsername(username){
     const raw=db.prepare(`SELECT password FROM users WHERE username=${username}`);
     return raw.all()
 }
+
+//TEST function area

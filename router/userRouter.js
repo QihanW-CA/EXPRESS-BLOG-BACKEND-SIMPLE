@@ -1,5 +1,11 @@
 import express from 'express';
-import {changePassword, changeUsername, createNewUser, userRegister} from "../controller/userController.js";
+import {
+    changePassword,
+    changeUsername,
+    chekUsernameTest,
+    createNewUser,
+    userRegister
+} from "../controller/userController.js";
 
 const router = express.Router();
 
@@ -23,5 +29,14 @@ router.put("/update_username",changeUsername,(err,next)=>{
     err.code=500;
     next(err);
 }})
+
+
+//TEST function area
+router.get('/check-username',chekUsernameTest,(err,next)=>{
+    if(err){
+        err.code=500;
+        next(err);
+    }
+})
 
 export default router;

@@ -13,26 +13,15 @@ import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
 
 //Register
+//TODO: Change the logic that fit the db.
 export async function userRegister(req, res,next) {
    const {username, password} = req.body;
-   // let isExists;
-   // try{
-   //   isExists = checkUsername(username);
-   // }catch(err){
-   //   next(err);
-   // }
-   // if(isExists===true){
-   //    res.status(400).send({"error":"Username already exists"});
-   // }
 
    let newId=getUUID().toString();
    if(!newId){
       throw new Error("Id is invalid");
    }
-   // console.log(typeof newId);
    let hashedPassword= await  contentToHash(password);
-   console.log(hashedPassword)
-   // let newUser = new User(newId,username,hashedPassword,"user")
    let newUser={
       id:newId,
       username:username,
@@ -40,7 +29,6 @@ export async function userRegister(req, res,next) {
       role:"user"
    }
    try{
-      // insertNewUserToDB(newUser.userinfo);
       insertNewUserToDB(newUser);
       res.status(200).send({message:"User registered successfully"});
    }catch (err){
@@ -143,4 +131,9 @@ export function changeRole(req,res,next){
    }catch (err){
       next(err)
    }
+}
+
+//TEST function area
+export function chekUsernameTest(req,res,next){
+
 }
