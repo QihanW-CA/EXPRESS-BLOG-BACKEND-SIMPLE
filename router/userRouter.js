@@ -2,8 +2,8 @@ import express from 'express';
 import {
     changePassword,
     changeUsername,
-    chekUsernameTest,
     createNewUser,
+    getUsernameByIdTest,
     userRegister
 } from "../controller/userController.js";
 
@@ -30,9 +30,8 @@ router.put("/update_username",changeUsername,(err,next)=>{
     next(err);
 }})
 
-
-//TEST function area
-router.get('/check-username',chekUsernameTest,(err,next)=>{
+//Additional function area
+router.get("/get-username",getUsernameByIdTest,(err,next)=>{
     if(err){
         err.code=500;
         next(err);

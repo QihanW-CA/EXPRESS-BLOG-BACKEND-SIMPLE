@@ -1,25 +1,22 @@
 // import * as dbQuery from "../service/queryDB.js";
 import {
-   getUserById,
    insertNewUserToDB,
    updatePassword,
    updateUserName,
-   checkUsername,
-   getPasswordByUsername,
-   updateRole
+   updateRole,
+   selectUsernameById
 } from "../service/userQuery.js";
 import {contentToHash,comparePassAndHash} from "../service/hashService.js";
 import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
 
 //Register
-//TODO: Change the logic that fit the db.
 export async function userRegister(req, res,next) {
    const {username, password} = req.body;
 
    let newId=getUUID().toString();
    if(!newId){
-      throw new Error("Id is invalid");
+      throw new Error("Failed to generate id");
    }
    let hashedPassword= await  contentToHash(password);
    let newUser={
@@ -134,6 +131,18 @@ export function changeRole(req,res,next){
 }
 
 //TEST function area
-export function chekUsernameTest(req,res,next){
+export function getUsernameByIdTest(req,res,next){
+   let id=req.query.id
+   if(!id){
+      res.json({"message":"Input id to get the username"})
+   }
 
+   try{
+      const result=selectUsernameById(id)
+      if(result){
+         res.json(result)
+      }
+   }catch (err){
+      next(err);
+   }
 }
