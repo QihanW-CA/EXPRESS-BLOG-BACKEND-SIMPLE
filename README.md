@@ -6,7 +6,7 @@ ___
 * I will and some new more features in the future.
 ___
 ## Before you start
-* Make sure you have Node.js installed.
+* Make sure you have __Node.js__ installed.
 * Learn some basic concepts of *back-end* and *Express.js*.
 * the `.env` file has not included so add new one manually.
 ___
@@ -16,12 +16,25 @@ ___
 3. The project should be running on port **3101**
 
 ### Posts
-`/posts/`is prepare for the posts
-* Use `/posts/` as _start point_ 
-* `/:id` to get a post object by using post's id as the key.
-* `/post-new-post` to create a new post
-* `/delete-post` to delete a post
+`/posts/`is prepared for the posts
+#### Start point
+* `/posts`
 
+#### Query posts
+* `/query-post`  
+it supports some URL queries, such as:  
+> `localhost.com/posts/query-post?id=0`  
+>  
+Now keep in mind in the real situations we use UUID to present id. It means id is not just a number but a long string.  
+Or,  
+you can do the query base on the author's id, like this:  
+>`localhost.com/posts/query-post?authorId=0`
+>  
+Again, the author id here is also used UUID.  
+
+NOTE:You only use one parameter to do the query. Otherwise, it returns a message like this:
+>{message:"You can only pick one parameter from id and authorId", type:'error', }
+>
 You can find the data structure of Post in model folder.
 
 ### Users

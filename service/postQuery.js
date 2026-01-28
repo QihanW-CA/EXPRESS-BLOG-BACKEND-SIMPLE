@@ -5,7 +5,7 @@ const db = getDB();
 export function selectPostByAuthorId(authorId){
   // const raw= db.prepare(`SELECT * FROM posts WHERE author_id ==${authorId}`);
   // return raw.all();
-    const raw=db.prepare('SELECT * FROM posts WHERE authorId = ?');
+    const raw=db.prepare('SELECT * FROM posts WHERE author_id = ?');
     return raw.get(authorId)
 }
 
@@ -16,11 +16,11 @@ export function selectPostById(id) {
     return raw.get(id);
 }
 
-export function selectPostByView(view){
+export function orderPostByView(views){
 
 }
 
-export function selectPostByLike(like){
+export function orderPostByLike(likes){
 
 }
 

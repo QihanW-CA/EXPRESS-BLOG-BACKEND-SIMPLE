@@ -1,29 +1,52 @@
 // import { postAuthorById } from "../service/queryDB.js";
 import ErrorModel from "../model/ErrorModel.js";
 // import {addNewPost} from "../service/postQuery.js";
-import {selectPostByAuthorId,updatePost,newPostToDB,deleteByAuthorId,deleteByPostId} from "../service/postQuery.js";
+import {
+  selectPostByAuthorId,
+  updatePost,
+  newPostToDB,
+  deleteByAuthorId,
+  deleteByPostId,
+  selectPostById
+} from "../service/postQuery.js";
 import {getUUID} from "../service/uuidService.js";
 import {raw} from "express";
 
 //Get the post
 export function getPosts(req, res, next) {
-  let {id,authorId,views,likes}=req.query;
-  let result={}
-  //Each one represents one function.
-  //TODO:The function will return a whole post by post id.
-  if(id){
+  let {id,authorId,sort}=req.query;
+  let result={posts:[]}
 
+  if(id && authorId){
+      res.json({message:"You can only pick one parameter from id and authorId",
+      type:'error',
+      })
+  }
+  //Each one represents one function.
+  if(id){
+    try{
+      let raw=selectPostById(id.toString())
+      result.posts.push(raw)
+    }catch(err){
+      next(err);
+    }
   }
   //TODO: Query by author id.
   if(authorId){
+    try{
+      let raw=selectPostByAuthorId(Number(authorId))
+      result.posts.push(raw)
+    }catch(err){
+      next(err);
+    }
+  }
+//They both perform a sort order in ascending order
+  if(sort && sort==="likes"){
 
   }
-  //TODO :Sort by views and take the limitations.
-  if(views){
 
-  }
-  //TODO: Sort by Likes and take the limitations.
-  if(likes){
+  if(sort && sort==="views"){
+
 
   }
   //Combine and output the result.
