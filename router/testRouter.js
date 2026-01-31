@@ -1,7 +1,9 @@
 import {Router} from "express";
 import {queryTest} from "../controller/testController.js";
+import {jwtAuthentication} from "../middleware/jwtAuhMiddleware.js";
 const router = Router();
 
+router.use(jwtAuthentication)
 router.get('/',(req,res,next)=>{
     res.json({'location':"Endpoint of test router",
     'title':'test router',

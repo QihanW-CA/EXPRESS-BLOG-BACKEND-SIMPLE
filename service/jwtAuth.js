@@ -7,7 +7,7 @@ The token flowed this structure:
     username:username
 }
 Model of token can be found at models folder.
-The JWT_SECRTE however. comes from env file. You should set them up by yourself and NEVER share with others.
+The JWT_SECRTE, however, comes from env file. You should set them up by yourself and NEVER share with others.
 */
 
 import jwt from 'jsonwebtoken';

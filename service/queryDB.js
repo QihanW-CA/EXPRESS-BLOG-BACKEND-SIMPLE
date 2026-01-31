@@ -1,6 +1,14 @@
+/*
+WARNING: This file is NO LONGER used .
+The original purpose of this module was to test DB.
+But now we have the real db at 'sqliteDB.js' file.
+DO NOT CHANGE, USE OR IMPORT FROM THIS MODULE.
+ */
+
+
+
 import fdb from "../model/fakeDB.json" with {type: "json"};
 import {contentToHash as hashPassword} from "../service/hashService.js";
-import {promise} from "bcrypt/promises.js";
 
 //Internal functions
 

@@ -4,12 +4,13 @@ import {
   newPostToDB,
   deleteByAuthorId,
   deleteByPostId,
-  selectPostById, orderPostBy, orderPostByAndSelectById, orderPostByAndSelectByAuthorId
+  selectPostById, orderPostByAndSelectById, orderPostByAndSelectByAuthorId
 } from "../service/postQuery.js";
 import {getUUID} from "../service/uuidService.js";
 import {raw} from "express";
 
 //Get the post
+//TODO: Add sort limit and content search.
 export function getPosts(req, res, next) {
   let {id,authorId,sort}=req.query;
 

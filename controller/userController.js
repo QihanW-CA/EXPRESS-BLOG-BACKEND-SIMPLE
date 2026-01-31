@@ -10,6 +10,11 @@ import {contentToHash,comparePassAndHash} from "../service/hashService.js";
 import {getUUID} from "../service/uuidService.js";
 import {signToken,verifyToken} from "../service/jwtAuth.js";
 
+//TODO: Make sure it can use request query as posts do. REMINDER: Do not expose the password
+export function getUser(req,res,next){
+   let {id,username}=req.query;
+}
+
 //Register
 export async function userRegister(req, res,next) {
    const {username, password} = req.body;
@@ -35,7 +40,6 @@ export async function userRegister(req, res,next) {
 
 //Log in
 //JWT will be created and verified in this section.
-//TODO:Finish this function.
 export function userLogin(req, res,next){
    let {username, password} = req.body;
    let isExists;
@@ -67,15 +71,6 @@ export function userLogin(req, res,next){
 
 }
 
-export function getUsernameById(req, res, next) {
-   let userId= req.param.id
-   try{
-      const userResult=getUserById(userId)
-      res.json(userResult)
-   }catch (err){
-      next(err)
-   }
-}
 //Create new user
 export function createNewUser(req,res,next){
    let newUser=req.body;

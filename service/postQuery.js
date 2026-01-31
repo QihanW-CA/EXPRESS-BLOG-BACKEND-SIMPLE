@@ -24,15 +24,16 @@ export function orderPostByAndSelectByAuthorId(sort,authorId){
 
 //Update the post
 export function updatePost(postId, postBody){
-    db.exec(`UPDATE posts SET content=${postBody.content} WHERE id = ${postId}`);
+    // db.exec(`UPDATE posts SET content=${postBody.content} WHERE id = ${postId}`);
+    let raw=db.prepare('UPDATE posts SET content=? WHERE id = ?');
+    raw.run(postBody, postId);
 }
 
 //Add new post
 export function newPostToDB(authorId, postBody){
-    // console.log("Service level:"+postBody);
     const stmt = db.prepare(`
-  INSERT INTO posts (id, title, content, views, likes, author_id, create_date)
-  VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO posts (id, title, content, views, likes, author_id, create_date)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
 `);
 
     stmt.run(
@@ -48,10 +49,15 @@ export function newPostToDB(authorId, postBody){
 }
 
 //Delete by author id
-export function deleteByAuthorId(id){
-    db.exec(`DELETE FROM posts WHERE author_id=${id}`);
+export function deleteByAuthorId(authorId){
+    // db.exec(`DELETE FROM posts WHERE author_id=${id}`);
+    let raw =db.prepare(`DELETE FROM posts WHERE author_id = ?`);
+    raw.run(authorId);
+
 }
 //Delete by post id
 export function deleteByPostId(post_id){
-    db.exec(`DELETE FROM posts WHERE id = ${post_id}`);
+    // db.exec(`DELETE FROM posts WHERE id = ${post_id}`);
+    let raw=db.prepare(`DELETE FROM posts WHERE id = ?`);
+    raw.run(post_id);
 }

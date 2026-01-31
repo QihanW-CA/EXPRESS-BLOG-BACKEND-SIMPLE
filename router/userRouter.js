@@ -6,9 +6,11 @@ import {
     getUsernameByIdTest,
     userRegister
 } from "../controller/userController.js";
+import {jwtAuthentication} from "../middleware/jwtAuhMiddleware.js";
 
 const router = express.Router();
 
+router.use(jwtAuthentication)
 //Create new user
 router.post("/create-new-user",userRegister,(err,next)=>{
     if(err){
@@ -30,12 +32,5 @@ router.put("/update_username",changeUsername,(err,next)=>{
     next(err);
 }})
 
-//Additional function area
-router.get("/get-username",getUsernameByIdTest,(err,next)=>{
-    if(err){
-        err.code=500;
-        next(err);
-    }
-})
 
 export default router;
