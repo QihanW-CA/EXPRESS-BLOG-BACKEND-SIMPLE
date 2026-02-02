@@ -26,6 +26,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "dotenv": "^17.2.3",
     "prettier": "^3.7.4"
   }
 }

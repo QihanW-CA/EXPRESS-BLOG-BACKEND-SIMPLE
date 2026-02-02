@@ -4,7 +4,7 @@ import {
    updatePassword,
    updateUserName,
    updateRole,
-   selectUsernameById, selectHashPassword
+   selectUsernameById, selectHashPassword, selectIdByUsername
 } from "../service/userQuery.js";
 import {contentToHash,comparePassAndHash} from "../service/hashService.js";
 import {getUUID} from "../service/uuidService.js";
@@ -13,6 +13,28 @@ import {signToken,verifyToken} from "../service/jwtAuth.js";
 //TODO: Make sure it can use request query as posts do. REMINDER: Do not expose the password
 export function getUser(req,res,next){
    let {id,username}=req.query;
+
+   if(id&&username){
+      res.status(500).send({"error":"Only one parameters allowed"});
+   }
+
+   if(id){
+      try{
+         let result =selectUsernameById(id)
+         res.json(result)
+      }catch(err){
+         next(err)
+      }
+   }
+
+   if(username){
+      try{
+         let result=selectIdByUsername(username)
+         res.json(result)
+      }catch (err){
+         next(err)
+      }
+   }
 }
 
 //Register
